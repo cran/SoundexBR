@@ -1,0 +1,11 @@
+useDynLib(SoundexBR)
+import(parallel) 
+
+export(
+    accent,
+    soundexBR,
+	ascii.table,
+	char2int,
+	int2char
+)
+

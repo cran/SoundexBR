@@ -3,14 +3,15 @@
 \alias{soundexBR}
 \title{ Phonetic-Coding For Portuguese
 }
-\description{The soundexBR function provides an algorithm for decoding names into phonetic codes, as pronounced in Portuguese language. Soundex coding can be useful to identify \sQuote{close} matches which typically fail due to variant spellings of names. For instance, both \dQuote{Clair} and \dQuote{Claire} return the same string \dQuote{C460}, but the slightly different spellings of these names is enough to cause a deterministic linkage to fail when comparing the actual names. Soundex does not help when the variants do not sound alike, or start with different letters.
+\description{The soundexBR function provides an algorithm for decoding names into phonetic codes, as pronounced in Portuguese. Soundex coding can be useful to identify \sQuote{close} matches which typically fail due to variant spellings of names. For instance, both \dQuote{Clair} and \dQuote{Claire} return the same string \dQuote{C460}, but the slightly different spellings of these names is enough to cause a deterministic linkage to fail when comparing the actual names. Soundex does not help when the variants do not sound alike, or start with different letters.
 }
 \usage{
-soundexBR(term, useBytes = FALSE)
+soundexBR(term, BR=TRUE, useBytes = FALSE)
 }
 \arguments{
   \item{term}{a list, a vector or a data frame with character strings.
 }
+\item{BR}{if \code{BR=TRUE}, commong mispelled first letters may be replaced}.
   \item{useBytes}{ if \code{useBytes=TRUE} performs byte-wise comparison. The default is set to \code{FALSE}, which takes longer, but it may prevent different results depending on character encoding.
 }
 }
@@ -55,7 +56,7 @@ See in \url{http://archives.gov/research/census/soundex.html}
 \examples{
 
 #### A silly example:
-names <- c('Ana Karolina Kuhnen', 'Ana Carolina Kuhnen', 'Ana Karolina', 'João Souza', 
+names <- c('Ana Karolina Kuhnen', 'Ana Carolina Kuhnen', 'Ana Karolina','João Souza', 
 'João Souza', 'Dilma Vana Rousseff', 'Dilma Rousef','Aécio Neves', 'Aecio Neves')
 
 soundexBR(names)

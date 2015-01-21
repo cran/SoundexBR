@@ -8,7 +8,40 @@ This R function may be useful for identifying "close" matches which typically fa
 
 Build status:
  + Master branch: [![Build Status](https://travis-ci.org/danielmarcelino/SoundexBR.svg?branch=master)](https://travis-ci.org/danielmarcelino/SoundexBR)
++ 
+The _ SoundexBR_  package lives on the R Foundation repository [(CRAN)](http://cran.r-project.org/web/packages/SoundexBR/index.html) and is also hosted on [Github](http://github.com/danielmarcelino/SoundexBR). To install it, you can use the following methods.
+
+1 - From the CRAN repository:
+
+  ```
+  install.packages('SoundexBR',repos='http://cran.r-project.org')
+  require(SoundexBR)
+  ```
+
+2 -  You can always download the latest development version using the nifty function from devtools package.
+
+
+  ```
+  require(devtools)
+  install_github("danielmarcelino/SoundexBR")
+  ```
   
+3 - Or download the [sources in a zip](https://github.com/danielmarcelino/SoundexBR/zipball/master) file and build manually. To do so, please unzip the file to an empty dir and run the following commands there:
+
+
+```
+R CMD build SoundexBR
+R CMD INSTALL SoundexBR_*.tar.gz
+```
+
+If you're running R on Windows, you need to install [Rtools](http://cran.stat.ucla.edu/bin/windows/Rtools/ ). Once you have installed `Rtools`, issue following command in command prompt:
+
+```
+R CMD build --binary <path to .tar.gz file>
+R CMD INSTALL <path to .zip file>
+```
+## Usage
+
 #### A silly example:
 ```
 names <- c('Ana Karolina Kuhnen', 'Ana Carolina Kuhnen', 'Ana Karolina',
@@ -19,9 +52,17 @@ soundexBR(names)
 ```
 
 ```
-names2 <- ("HILBERT", "Heilbronn", "Gauss", "Kant")
+names2 <- c("HILBERT", "Heilbronn", "Gauss", "Kant")
+ 
+ _Original Soundex_: 
+ 
+ soundexBR(names2, BR=FALSE) 
+[1] "H416" "H416" "G200" "K530"
+ 
+ _SoundexBR:_
 
 soundexBR(names2)
+[1] "I416" "E416" "G200" "C530"
 
 ```
 #### Example with RecordLinkage:
@@ -87,12 +128,12 @@ attr(,"class")
 [1] "RecLinkData"
 
 ```
-#### To edit correspondences 
+#### Editing  correspondences 
 ```
 
 > editMatch(pairs)
 ```
-#### To access information in the object:  
+#### Accessing information within the object:  
 ```
 > weights <- epiWeights(pairs, e = 0.01, f = pairs$frequencies)
 > hist(weights$Wdata, plot = FALSE) # Plot TRUE
@@ -130,10 +171,21 @@ attr(,"class")
 
 
 
-#### The Algorithm as an Outline
+#### The Algorithm in a Nutshell
 
 Capitalize all letters in the word and drop all punctuation marks. Pad the word with rightmost blanks as needed during each procedure step.
-Retain the first letter of the word.
+Retain the first letter of the word. However, if the first letter of the word is 
+```H```, retain the second letter. If the first letter of the word is 
+```Y```, change to ```I```. If the combination of the first and the second letters is: 
+```WA```, change to ```WA```. If the combination of the first and the second letters is: 
+```KA```, change to ```CA```. If the combination of the first and the second letters is: 
+```KO```, change to ```CO```. If the combination of the first and the second letters is: 
+```KU```, change to ```CU```. If the combination of the first and the second letters is: 
+```CI```, change to ```SI```. If the combination of the first and the second letters is: 
+```CE```, change to ```SE```. If the combination of the first and the second letters is: 
+```GE```, change to ```JE```. If the combination of the first and the second letters is: 
+```GI```, change to ```JI```.
+
 Change all occurrence of the following letters to '0' (zero):
 ```A, E, I, O, U, H, W, Y.```
 Change letters from the following sets into the digit given:

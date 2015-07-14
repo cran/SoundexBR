@@ -1,4 +1,4 @@
-#' @encoding UTF-8
+#' @encoding latin1
 #'@title Get rid of Accent Marks
 #'
 #' @description Replace lower and upper case accented letters with their counterpart without diacritical marks.
@@ -8,10 +8,8 @@
 #' @export
 #' @author Daniel Marcelino \email{dmarcelino@@live.com}.
 #' @seealso \code{\link{ascii.table}}.
-#' @keywords attributes
-#' @examples
-#' x <- 'Thérèse, não me julgues pela metade se não me conheces por inteiro'
-#' accent(x)
+#' @keywords Attributes
+#'
 accent <-
 function(x){
 	# uppercase
@@ -27,9 +25,6 @@ x <-gsub("\u00c7","C", x)
 x <-gsub("\u00d1","N",x)
 x <-gsub("[\u00dd\u009f]","Y",x)
 
-# Will solve these marks: ß, à, á, â, ã, ä, å, æ, ç, è,
-# é, ê, ë, ì, í, î, ï, ñ, ò, ó, ô, õ, ö, ù, ú, û, ü, ý, ÿ, œ
-# lowercase
 x <-gsub("[\u00e4\u00e0\u00e1\u00e2\u00e3\u00e5\u00e6]","a",x)
 # a<-("\u00e4\u00e0\u00e1\u00e2\u00e3\u00e5\u00e6")
 x <-gsub("[\u00eb\u00e8\u00e9\u00ea]","e",x)
